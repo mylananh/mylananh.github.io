@@ -1,5 +1,24 @@
 <!DOCTYPE html>
 <html>
-	<head><title>Hello</title></head>
-	<body></body>
+	<head>
+		<title>Hello</title>
+		
+		<meta property="al:web:url" content="https://www.tiktok.com/coin" />
+		<meta property="al:web:should_fallback" content="true" />
+	</head>
+	<body>
+		<h1>Hello world</h1>
+		<div>Countdown to redirect to coin page <span id="time">3</span></div>
+		<script type="text/javascript">
+			let retry = 0;
+			const intervalId = setInterval(() => {
+				retry++;
+				if (retry === 3) {
+					clearInterval(intervalId);
+					location.href = "https://www.tiktok.com/coin"
+				}
+				document.getElementById('time').innerHTML = String(3 - retry);
+			}, 1000);
+		</script>
+	</body>
 </html>
