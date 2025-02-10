@@ -32,25 +32,34 @@
 			function jump() {
 			    var url = "https://tiktok.com/coin";
 
-			    // Check if running inside Facebook WebView
-			    var ua = navigator.userAgent || navigator.vendor;
-			    var isFBWebView = ua.includes("FBAN") || ua.includes("FBAV");
-			
-			    if (isFBWebView) {
-				if (/Android/i.test(ua)) {
-				    // Android: Use Intent to force open in browser
-				    window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +
-							   "#Intent;scheme=https;package=com.android.chrome;end;";
-				} else if (/iPhone|iPad|iPod/i.test(ua)) {
-				    // iOS: Open in Safari using setTimeout workaround
-				    setTimeout(function() {
-					window.location.href = url;
-				    }, 500);
-				}
-			    } else {
-				// Default behavior if not in WebView
-				window.open(url, "_blank");
-			    }
+// Check if running inside Facebook WebView
+var ua = navigator.userAgent || navigator.vendor;
+var isFBWebView = ua.includes("FBAN") || ua.includes("FBAV");
+
+if (isFBWebView) {
+    if (/Android/i.test(ua)) {
+        // Android: Force open in Chrome using Chrome's URL scheme
+        window.location.href = "googlechrome://" + url.replace(/^https?:\/\//, "");
+        
+        // Fallback to intent in case googlechrome:// doesn't work
+        // setTimeout(function() {
+        //     window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +
+        //                            "#Intent;scheme=https;package=com.android.chrome;end;";
+        // }, 1000);
+        
+    } else if (/iPhone|iPad|iPod/i.test(ua)) {
+        // iOS: Use x-safari-https to force open Safari
+        window.location.href = "x-safari-https://" + url.replace(/^https?:\/\//, "");
+        
+        // Fallback in case x-safari-https fails
+        // setTimeout(function() {
+        //     window.location.href = url;
+        // }, 1000);
+    }
+} else {
+    // Default behavior if not in WebView
+    window.open(url, "_blank");
+}
 			}
 		</script>
 	</body>
