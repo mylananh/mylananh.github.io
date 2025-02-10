@@ -9,25 +9,49 @@
 	</head>
 	<body>
 		<h1>Hello world</h1>
-		<div>Countdown to redirect to coin page <span id="time">3</span></div>
+<!-- 		<div>Countdown to redirect to coin page <span id="time">3</span></div> -->
+		<button onclick="jump()">Jump to browser</button>
 		<script type="text/javascript">
-			let retry = 0;
-			function isInApp(appSpecificUserAgents) {
-				var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-				for (i = 0; i <= appSpecificUserAgents.length; i++) {
-					if (userAgent.indexOf(appSpecificUserAgents[i]) > -1) return true;
+			// let retry = 0;
+			// function isInApp(appSpecificUserAgents) {
+			// 	var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+			// 	for (i = 0; i <= appSpecificUserAgents.length; i++) {
+			// 		if (userAgent.indexOf(appSpecificUserAgents[i]) > -1) return true;
+			// 	}
+			// }
+			// const intervalId = setInterval(() => {
+			// 	retry++;
+			// 	if (retry === 3) {
+			// 		clearInterval(intervalId);
+			// 		if (isInApp(["FBAN", "FBAV"])) {
+			// 			location.href = "com-apple-mobilesafari-tab:https://www.tiktok.com/coin"
+			// 		}
+			// 	}
+			// 	document.getElementById('time').innerHTML = String(3 - retry);
+			// }, 1000);
+			function jump() {
+			    var url = "https://tiktok.com/coin";
+
+			    // Check if running inside Facebook WebView
+			    var ua = navigator.userAgent || navigator.vendor;
+			    var isFBWebView = ua.includes("FBAN") || ua.includes("FBAV");
+			
+			    if (isFBWebView) {
+				if (/Android/i.test(ua)) {
+				    // Android: Use Intent to force open in browser
+				    window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +
+							   "#Intent;scheme=https;package=com.android.chrome;end;";
+				} else if (/iPhone|iPad|iPod/i.test(ua)) {
+				    // iOS: Open in Safari using setTimeout workaround
+				    setTimeout(function() {
+					window.location.href = url;
+				    }, 500);
 				}
+			    } else {
+				// Default behavior if not in WebView
+				window.open(url, "_blank");
+			    }
 			}
-			const intervalId = setInterval(() => {
-				retry++;
-				if (retry === 3) {
-					clearInterval(intervalId);
-					if (isInApp(["FBAN", "FBAV"])) {
-						location.href = "com-apple-mobilesafari-tab:https://www.tiktok.com/coin"
-					}
-				}
-				document.getElementById('time').innerHTML = String(3 - retry);
-			}, 1000);
 		</script>
 	</body>
 </html>
