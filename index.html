@@ -39,7 +39,7 @@ var isFBWebView = ua.includes("FBAN") || ua.includes("FBAV");
 if (isFBWebView) {
     if (/Android/i.test(ua)) {
         // Android: Force open in Chrome using Chrome's URL scheme
-        window.location.href = "googlechrome://" + url.replace(/^https?:\/\//, "");
+        window.location.href = "googlechromes://" + url.replace(/^https?:\/\//, "");
         
         // Fallback to intent in case googlechrome:// doesn't work
         // setTimeout(function() {
