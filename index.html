@@ -11,6 +11,11 @@
 		<h1>Hello world</h1>
 <!-- 		<div>Countdown to redirect to coin page <span id="time">3</span></div> -->
 		<button onclick="jump()">Jump to browser</button>
+		
+<fb:login-button 
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
 		<script type="text/javascript">
 			// let retry = 0;
 			// function isInApp(appSpecificUserAgents) {
@@ -84,5 +89,14 @@ if (isFBWebView) {
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
+		<script>
+			
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+	console.log("my login state", response);
+    statusChangeCallback(response);
+  });
+}
+		</script>
 	</body>
 </html>
