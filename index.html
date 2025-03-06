@@ -11,71 +11,40 @@
 		<h1>Hello world</h1>
 <!-- 		<div>Countdown to redirect to coin page <span id="time">3</span></div> -->
 		<button onclick="checkLoginState()">Jump to browser</button>
+
+		<a href="fb://facewebmodal/f?href=https://www.facebook.com/v19.0/dialog/oauth?client_id=999247325599620&redirect_uri=" style="width:200px;height:64px;padding:12px;border:1px solid red;">
+   Login with Facebook
+</a>
+
+		<button style="margin:25px" onclick="facebookLogin()">Clickkkk</button>
+		<div>
+			<button style="margin:25px" onclick="facebookLogin()">Clickkkk</button>
+		</div>
 <div id="fb-root"></div>
 		<div class="fb-login-button" data-width="" data-size="" data-button-type="" data-layout="" data-auto-logout-link="false" data-use-continue-as="false"></div>
-		<script type="text/javascript">
-			// let retry = 0;
-			// function isInApp(appSpecificUserAgents) {
-			// 	var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-			// 	for (i = 0; i <= appSpecificUserAgents.length; i++) {
-			// 		if (userAgent.indexOf(appSpecificUserAgents[i]) > -1) return true;
-			// 	}
-			// }
-			// const intervalId = setInterval(() => {
-			// 	retry++;
-			// 	if (retry === 3) {
-			// 		clearInterval(intervalId);
-			// 		if (isInApp(["FBAN", "FBAV"])) {
-			// 			location.href = "com-apple-mobilesafari-tab:https://www.tiktok.com/coin"
-			// 		}
-			// 	}
-			// 	document.getElementById('time').innerHTML = String(3 - retry);
-			// }, 1000);
-			
-			function jump() {
-			    var url = "https://tiktok.com/coin";
-
-// Check if running inside Facebook WebView
-var ua = navigator.userAgent || navigator.vendor;
-var isFBWebView = ua.includes("FBAN") || ua.includes("FBAV");
-
-if (isFBWebView) {
-    if (/Android/i.test(ua)) {
-        // Android: Force open in Chrome using Chrome's URL scheme
-        window.location.href = "googlechromes://" + url.replace(/^https?:\/\//, "");
-        
-        // Fallback to intent in case googlechrome:// doesn't work
-        // setTimeout(function() {
-        //     window.location.href = "intent://" + url.replace(/^https?:\/\//, "") +
-        //                            "#Intent;scheme=https;package=com.android.chrome;end;";
-        // }, 1000);
-        
-    } else if (/iPhone|iPad|iPod/i.test(ua)) {
-        // iOS: Use x-safari-https to force open Safari
-        window.location.href = "x-safari-https://" + url.replace(/^https?:\/\//, "");
-        
-        // Fallback in case x-safari-https fails
-        // setTimeout(function() {
-        //     window.location.href = url;
-        // }, 1000);
-    }
-} else {
-    // Default behavior if not in WebView
-    window.open(url, "_blank");
-}
-			}
-		</script>
 		<script>
   window.fbAsyncInit = function() {
     FB.init({
       appId      : '999247325599620',
       cookie     : true,
       xfbml      : true,
+	    version    : 'v19.0'
     });
       
     FB.AppEvents.logPageView();   
       
   };
+
+			function facebookLogin() {
+    FB.login(function(response) {
+      if (response.authResponse) {
+        console.log('User logged in:', response);
+        // Send response.authResponse.accessToken to your backend for verification
+      } else {
+        console.log('User cancelled login or did not fully authorize.');
+      }
+    }, {scope: 'email'});
+  }
 
   (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
