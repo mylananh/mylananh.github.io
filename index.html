@@ -90,7 +90,6 @@ if (isFBWebView) {
 function checkLoginState() {
   FB.getLoginStatus(function(response) {
 	console.log("my login state", response);
-    statusChangeCallback(response);
   });
 }
 		</script>
