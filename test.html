@@ -10,7 +10,7 @@
         <script>
             function ditmemay() {
                 fetch(`/.netlify/functions/hello=${window.test || 1}`, {
-                    method: 'POST',
+                    method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                     }
