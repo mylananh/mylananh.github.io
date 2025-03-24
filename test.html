@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <title>TESTTTTT</title>
+    </head>
+    <body>
+        <div>Hello world</div>
+        <button id="shit" style="display: block;" onclick="ditmemay()">Click</button>
+        <script>
+            function ditmemay() {
+                fetch(`/.netlify/functions/hello=${window.test || 1}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }).then(r => r.json()).then((r) => {
+                    console.log({
+                        r
+                    })
+                })
+            }
+        </script>
+        <script>
+            //window.onDitMeMay();
+            //window.postMessage("sendToMe", "*");
+            if (new URLSearchParams(location.search).get("cac") === "1") {
+                window.addEventListener('message', (event) => {
+                const s = document.getElementById("shit");
+                const { data } = event;
+                //alert("hahaha");
+                if (data.type === "message") {
+                    const p_type = data.p_type;
+                    if (p_type === "hello") {
+                        event.source.postMessage("sendToMe", "*")
+                    } else {
+
+                        const token = data.token;
+                        window.test = token;
+                        s.innerHTML = `Fetch with token ${token}`
+                    }
+                }
+            })
+            }
+        </script>
+    </body>
+</html>
