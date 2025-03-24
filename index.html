@@ -6,23 +6,24 @@
     <body>
         <h2>List of books</h2>
         <div id="fuck" style="width:0;height:0;">
-          <iframe src="http://localhost:3000/books" style="width:100%;height:400px"></iframe>
+          <!-- <iframe src="http://localhost:3000/books" style="width:100%;height:400px"></iframe> -->
         </div>
-        <button onclick="ditme()">Open and send token</button>
-        <script defer>
+        <!-- <button onclick="ditme()">Open and send token</button> -->
+        <script>
             function ditme() {
-                const container = document.getElementById("fuck");
-                const iframe = document.createElement("iframe");
-                iframe.src = "http://localhost:3000/books";
-                iframe.width = "800";
-                iframe.height = "600";
-                container.appendChild(iframe);
-                window.addEventListener("message", (event) => {
-                  if (event.origin !== "http://localhost:3000") return;
-                  const data = event.data;
-                  alert(`window ${data}`)
-                });
+              window.addEventListener("message", (event) => {
+                const data = event.data;
+                alert(`window ${data}`)
+              });
+              const container = document.getElementById("fuck");
+              const iframe = document.createElement("iframe");
+              iframe.src = "http://localhost:3000/books";
+              iframe.width = "800";
+              iframe.height = "600";
+              container.appendChild(iframe);
+              
             }
+            ditme();
         </script>
     </body>
 </html>
