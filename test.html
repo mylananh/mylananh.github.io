@@ -9,7 +9,7 @@
         <button id="shit" style="display: block;" onclick="ditmemay()">Click</button>
         <script>
             function ditmemay() {
-                fetch(`/.netlify/functions/hello?=${window.test || 1}`, {
+                return fetch(`/.netlify/functions/hello?=${window.test || 1}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -34,10 +34,12 @@
                     if (p_type === "hello") {
                         event.source.postMessage("sendToMe", "*")
                     } else {
-
                         const token = data.token;
                         window.test = token;
-                        s.innerHTML = `Fetch with token ${token}`
+                        ditmemay().then((t) => {
+                            event.source.postMessage("endd", "*")
+                            window.close();
+                        });
                     }
                 }
             })
