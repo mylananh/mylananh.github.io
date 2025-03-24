@@ -1,7 +1,7 @@
 import type { Context } from "@netlify/functions";
 
 export default async (req: Request, context: Context) => {
-    const r = new Response(JSON.stringify({m: "hello from netlify"}), {
+    const r = new Response(JSON.stringify({ m: "hello from netlify" }), {
         status: 200,
         headers: {
 "Content-Type": "application/json",
