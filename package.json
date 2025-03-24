@@ -1,0 +1,11 @@
+{
+  "name": "mylananh.github.io",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mylananh/mylananh.github.io.git",
+  "author": "luantrong.nguyen <luantrong.nguyen@bytedance.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@netlify/functions": "^3.0.4"
+  }
+}
