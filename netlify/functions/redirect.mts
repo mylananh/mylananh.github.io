@@ -13,7 +13,7 @@ export default async (req: Request, context: Context) => {
     return new Response("Redirecting...", {
         status: 302,
         headers: {
-            "Set-Cookie": `test_testauth_token=${token}; Path=/; HttpOnly; Secure; SameSite=Lax`,
+            "Set-Cookie": `test_testauth_token=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Expires=Fri, 10 Oct 2025 00:00:00 GMT;`,
             "Location": `https://classy-brioche-924f5d.netlify.app?token=${token}`,
             "Access-Control-Allow-Origin": "*", // Allow all origins (CORS),
             "Access-Control-Allow-Methods": "GET,POST",
