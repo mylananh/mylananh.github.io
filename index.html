@@ -10,20 +10,7 @@
         </div>
         <!-- <button onclick="ditme()">Open and send token</button> -->
         <script>
-            function ditme() {
-              window.addEventListener("message", (event) => {
-                const data = event.data;
-                alert(`window ${data}`)
-              });
-              const container = document.getElementById("fuck");
-              const iframe = document.createElement("iframe");
-              iframe.src = `http://${(new URLSearchParams(location.search).get("h")) || "localhost"}:3000/books`;
-              iframe.width = "800";
-              iframe.height = "600";
-              container.appendChild(iframe);
-              
-            }
-            ditme();
+            
         </script>
     </body>
 </html>

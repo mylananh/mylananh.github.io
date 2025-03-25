@@ -9,7 +9,7 @@
         <button id="shit" style="display: block;" onclick="ditmemay()">Click</button>
         <script>
             function ditmemay() {
-                return fetch(`/.netlify/functions/hello?=${window.test || 1}`, {
+                return fetch(`/.netlify/functions/hello?c=${window.test || 1}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
