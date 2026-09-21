@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chào buổi sáng, tình yêu của anh 💕</title>
+<style>
+  :root{
+    --pink: #ff6b9d;
+    --pink-dark: #e0507f;
+    --cream: #fff5f7;
+    --gold: #f4a261;
+    --text: #4a2c3a;
+  }
+  * { box-sizing: border-box; }
+  body{
+    margin:0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(160deg, #fff5f7 0%, #ffe3ec 40%, #ffd6e8 100%);
+    color: var(--text);
+    min-height:100vh;
+    padding: 24px 16px 60px;
+  }
+  .wrap{ max-width: 720px; margin: 0 auto; }
+  header{ text-align:center; margin-bottom: 32px; }
+  header .date{ font-size: 14px; opacity:.65; letter-spacing:.05em; text-transform:uppercase; }
+  header h1{
+    font-size: clamp(28px, 6vw, 42px);
+    margin: 8px 0 0;
+    color: var(--pink-dark);
+  }
+  .card{
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(224,80,127,0.12);
+    border: 1px solid #ffe0ea;
+  }
+  .card h2{
+    margin-top:0;
+    color: var(--pink-dark);
+    font-size: 20px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  #daily-message{
+    font-size: 19px;
+    line-height:1.6;
+    font-style: italic;
+    text-align:center;
+    padding: 4px 0;
+  }
+  #shuffle{
+    display:block;
+    margin: 16px auto 0;
+    background: var(--pink);
+    color:#fff;
+    border:none;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size:14px;
+    cursor:pointer;
+    transition: transform .15s ease, background .15s ease;
+  }
+  #shuffle:hover{ background: var(--pink-dark); transform: translateY(-1px); }
+  .poem{
+    line-height: 2;
+    font-size: 18px;
+    text-align:center;
+    white-space: pre-line;
+    font-family: 'Georgia', serif;
+    color: var(--text);
+  }
+  .poem .signature{
+    display:block;
+    margin-top: 14px;
+    font-size: 14px;
+    opacity:.7;
+    font-style: italic;
+  }
+  ul.anecdotes{ padding-left: 0; list-style:none; margin:0; }
+  ul.anecdotes li{
+    padding: 10px 0 10px 32px;
+    position: relative;
+    border-bottom: 1px dashed #ffe0ea;
+    line-height:1.5;
+  }
+  ul.anecdotes li:last-child{ border-bottom:none; }
+  ul.anecdotes li::before{
+    content: "💛";
+    position:absolute;
+    left:0;
+  }
+  .edit-note{
+    font-size: 13px;
+    opacity:.6;
+    margin-top: 10px;
+    text-align:center;
+  }
+  .promises{ padding-left: 0; list-style:none; margin:0; }
+  .promises li{
+    padding: 8px 0 8px 30px;
+    position:relative;
+    line-height:1.5;
+  }
+  .promises li::before{
+    content: "💍";
+    position:absolute;
+    left:0;
+  }
+  .gallery{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+    margin-top: 8px;
+  }
+  .photo{
+    aspect-ratio: 1;
+    border-radius: 16px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    font-size: 40px;
+    text-align:center;
+    color:#fff;
+    padding: 10px;
+  }
+  .photo span.cap{
+    font-size: 12px;
+    margin-top: 6px;
+    line-height:1.3;
+  }
+  .photo.romantic1{ background: linear-gradient(135deg, #ff9a8b, #ff6a88); }
+  .photo.romantic2{ background: linear-gradient(135deg, #f6d365, #fda085); }
+  .photo.funny1{ background: linear-gradient(135deg, #a1c4fd, #c2e9fb); color:#2b3a55; }
+  .photo.funny2{ background: linear-gradient(135deg, #84fab0, #8fd3f4); color:#2b3a55; }
+  .photo.romantic3{ background: linear-gradient(135deg, #d4a5ff, #ff9ecb); }
+  .photo.funny3{ background: linear-gradient(135deg, #fbc2eb, #a6c1ee); color:#2b3a55; }
+  footer{
+    text-align:center;
+    font-size: 13px;
+    opacity:.6;
+    margin-top: 20px;
+  }
+  footer .hearts{ font-size: 20px; opacity:1; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="date" id="today"></div>
+    <h1>Chào buổi sáng, vợ yêu 💕</h1>
+  </header>
+
+  <section class="card">
+    <h2>🌅 Lời chào mỗi sáng</h2>
+    <p id="daily-message"></p>
+    <button id="shuffle">Đổi lời yêu thương khác 🔄</button>
+  </section>
+
+  <section class="card">
+    <h2>📜 Một bài thơ cho em</h2>
+    <div class="poem">Sáng nay mở mắt thấy em,
+Lòng anh ấm áp dịu êm nắng vàng.
+Đường đời có lắm mưa ngàn,
+Có em bên cạnh muôn ngàn cũng qua.
+Tình ta như khúc dân ca,
+Càng nghe càng thấm, càng xa càng gần.
+Trăm năm anh nguyện một lần,
+Mai sau bạc tóc vẫn cần có nhau.<span class="signature">— anh viết riêng cho em</span></div>
+  </section>
+
+  <section class="card">
+    <h2>😂 Những kỷ niệm vui của tụi mình</h2>
+    <ul class="anecdotes" id="anecdotes"></ul>
+    <p class="edit-note">✏️ Đây là chỗ để anh thêm những kỷ niệm thật của tụi mình — sửa trong file <code>for-my-wife/index.html</code>, mảng <code>anecdotes</code> nhé.</p>
+  </section>
+
+  <section class="card">
+    <h2>🤝 Lời hứa của anh</h2>
+    <ul class="promises">
+      <li>Anh hứa sẽ luôn chọn em, mỗi ngày, kể cả những ngày mệt mỏi nhất.</li>
+      <li>Anh hứa sẽ cười cùng em nhiều hơn khóc, và nếu có khóc thì cũng có anh ở đó.</li>
+      <li>Anh hứa sẽ già đi cùng em, tóc bạc, chân chậm nhưng tay vẫn nắm nhau.</li>
+      <li>Anh hứa sẽ luôn coi em là ưu tiên, không phải vì nghĩa vụ, mà vì anh muốn vậy.</li>
+      <li>Anh hứa yêu em không chỉ hôm nay, mà là mãi mãi — forever and always.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>📸 Ảnh của tụi mình</h2>
+    <div class="gallery">
+      <div class="photo romantic1">🌇<span class="cap">Hoàng hôn hôm đó đẹp, nhưng em đẹp hơn</span></div>
+      <div class="photo funny1">🍜<span class="cap">Lần anh làm cháy nồi phở đầu tiên</span></div>
+      <div class="photo romantic2">💑<span class="cap">Tấm hình đôi lúc nào cũng thích</span></div>
+      <div class="photo funny2">😂<span class="cap">Mặt em lúc bị anh hù</span></div>
+      <div class="photo romantic3">☕<span class="cap">Sáng nào cũng muốn uống cà phê cùng em</span></div>
+      <div class="photo funny3">🐶<span class="cap">Cả hai đứa bị con cún nhà hàng xóm bắt nạt</span></div>
+    </div>
+    <p class="edit-note">📷 Thay các ô trên bằng ảnh thật: thêm file vào thư mục <code>for-my-wife/images/</code> rồi đổi mỗi <code>&lt;div class="photo"&gt;</code> thành <code>&lt;img src="images/ten-anh.jpg"&gt;</code>.</p>
+  </section>
+
+  <footer>
+    <div class="hearts">❤️ 💛 💚 💙 💜</div>
+    Made with love for the best wife in the world.
+  </footer>
+
+</div>
+
+<script>
+  const messages = [
+    "Mỗi sáng thức dậy, điều đầu tiên anh nghĩ đến là em. Cảm ơn vì đã chọn anh, mỗi ngày.",
+    "Em là lý do những buổi sáng bình thường trở nên đặc biệt. Anh yêu em, hôm nay và mãi mãi.",
+    "Không cần cà phê, chỉ cần nghĩ đến nụ cười của em là anh đã tỉnh táo cả ngày rồi.",
+    "Có em bên cạnh, ngày nào cũng là một ngày đáng để mong chờ. I love you more than yesterday.",
+    "Em là món quà đẹp nhất mà anh từng nhận được — và anh sẽ trân trọng nó mỗi ngày.",
+    "Dù cuộc sống có bận rộn thế nào, trái tim anh vẫn luôn dành một chỗ lớn nhất cho em.",
+    "Good morning, my love. Cảm ơn em vì đã là chính mình — anh yêu tất cả những điều đó.",
+    "Nếu hạnh phúc có hình dạng, thì nó chính là em, ngay lúc này, trong vòng tay anh."
+  ];
+
+  const anecdotes = [
+    "Cái lần tụi mình đi lạc đường tìm quán ăn mà cuối cùng lại tìm được món ngon nhất từ trước giờ.",
+    "Lần đầu tụi mình nấu ăn chung và suýt làm cháy cả bếp — nhưng vẫn ăn hết sạch vì đói quá.",
+    "Em ngủ gục ngay giữa bộ phim mà tụi mình háo hức chờ xem cả tháng trời.",
+    "Cuộc thi xem ai chịu lạnh giỏi hơn khi đi du lịch — và ai cũng thua thảm hại.",
+    "Lần anh hù em sợ muốn rớt tim, xong bị em đánh cho một trận nhớ đời."
+  ];
+
+  function pickRandom(arr, excludeIndex){
+    let i;
+    do { i = Math.floor(Math.random() * arr.length); } while (arr.length > 1 && i === excludeIndex);
+    return i;
+  }
+
+  let lastIndex = -1;
+  function showMessage(){
+    lastIndex = pickRandom(messages, lastIndex);
+    document.getElementById('daily-message').textContent = messages[lastIndex];
+  }
+
+  document.getElementById('shuffle').addEventListener('click', showMessage);
+  showMessage();
+
+  const list = document.getElementById('anecdotes');
+  anecdotes.forEach(text => {
+    const li = document.createElement('li');
+    li.textContent = text;
+    list.appendChild(li);
+  });
+
+  document.getElementById('today').textContent = new Date().toLocaleDateString('vi-VN', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+</script>
+
+</body>
+</html>
