@@ -139,6 +139,21 @@
   .photo.funny2{ background: linear-gradient(135deg, #84fab0, #8fd3f4); color:#2b3a55; }
   .photo.romantic3{ background: linear-gradient(135deg, #d4a5ff, #ff9ecb); }
   .photo.funny3{ background: linear-gradient(135deg, #fbc2eb, #a6c1ee); color:#2b3a55; }
+  .photo.romantic4{ background: linear-gradient(135deg, #ffafbd, #ffc3a0); }
+  .photo.funny4{ background: linear-gradient(135deg, #f7ff00, #db36a4); color:#2b3a55; }
+  #poem-shuffle{
+    display:block;
+    margin: 16px auto 0;
+    background: transparent;
+    color: var(--pink-dark);
+    border: 1px solid var(--pink);
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-size:13px;
+    cursor:pointer;
+    transition: background .15s ease, color .15s ease;
+  }
+  #poem-shuffle:hover{ background: var(--pink); color:#fff; }
   footer{
     text-align:center;
     font-size: 13px;
@@ -164,14 +179,8 @@
 
   <section class="card">
     <h2>📜 Một bài thơ cho em</h2>
-    <div class="poem">Sáng nay mở mắt thấy em,
-Lòng anh ấm áp dịu êm nắng vàng.
-Đường đời có lắm mưa ngàn,
-Có em bên cạnh muôn ngàn cũng qua.
-Tình ta như khúc dân ca,
-Càng nghe càng thấm, càng xa càng gần.
-Trăm năm anh nguyện một lần,
-Mai sau bạc tóc vẫn cần có nhau.<span class="signature">— anh viết riêng cho em</span></div>
+    <div class="poem" id="poem-text"></div>
+    <button id="poem-shuffle">Đổi bài thơ khác 📜</button>
   </section>
 
   <section class="card">
@@ -188,6 +197,8 @@ Mai sau bạc tóc vẫn cần có nhau.<span class="signature">— anh viết r
       <li>Anh hứa sẽ già đi cùng em, tóc bạc, chân chậm nhưng tay vẫn nắm nhau.</li>
       <li>Anh hứa sẽ luôn coi em là ưu tiên, không phải vì nghĩa vụ, mà vì anh muốn vậy.</li>
       <li>Anh hứa yêu em không chỉ hôm nay, mà là mãi mãi — forever and always.</li>
+      <li>Anh hứa sẽ luôn lắng nghe em, kể cả khi anh không hiểu hết chuyện em đang kể (nhưng anh vẫn gật đầu rất chăm chú).</li>
+      <li>Anh hứa mỗi sáng mở mắt ra, người đầu tiên anh muốn thấy vẫn luôn là em, hôm nay, ngày mai, và mãi về sau.</li>
     </ul>
   </section>
 
@@ -200,6 +211,8 @@ Mai sau bạc tóc vẫn cần có nhau.<span class="signature">— anh viết r
       <div class="photo funny2">😂<span class="cap">Mặt em lúc bị anh hù</span></div>
       <div class="photo romantic3">☕<span class="cap">Sáng nào cũng muốn uống cà phê cùng em</span></div>
       <div class="photo funny3">🐶<span class="cap">Cả hai đứa bị con cún nhà hàng xóm bắt nạt</span></div>
+      <div class="photo romantic4">🌌<span class="cap">Đêm tụi mình ngồi ngắm sao mà chẳng nhớ tên sao nào</span></div>
+      <div class="photo funny4">🥴<span class="cap">Mặt anh lúc bị em chọc quê trước mặt cả nhà</span></div>
     </div>
     <p class="edit-note">📷 Thay các ô trên bằng ảnh thật: thêm file vào thư mục <code>for-my-wife/images/</code> rồi đổi mỗi <code>&lt;div class="photo"&gt;</code> thành <code>&lt;img src="images/ten-anh.jpg"&gt;</code>.</p>
   </section>
@@ -220,15 +233,48 @@ Mai sau bạc tóc vẫn cần có nhau.<span class="signature">— anh viết r
     "Em là món quà đẹp nhất mà anh từng nhận được — và anh sẽ trân trọng nó mỗi ngày.",
     "Dù cuộc sống có bận rộn thế nào, trái tim anh vẫn luôn dành một chỗ lớn nhất cho em.",
     "Good morning, my love. Cảm ơn em vì đã là chính mình — anh yêu tất cả những điều đó.",
-    "Nếu hạnh phúc có hình dạng, thì nó chính là em, ngay lúc này, trong vòng tay anh."
+    "Nếu hạnh phúc có hình dạng, thì nó chính là em, ngay lúc này, trong vòng tay anh.",
+    "Anh chẳng cần điều gì to tát, chỉ cần mỗi sáng thức dậy vẫn còn em nằm cạnh bên là đủ bình yên rồi.",
+    "Người ta nói tình yêu là hai trái tim cùng nhịp đập — anh nói tình yêu là em, ly, và bữa sáng anh làm hơi mặn mà em vẫn ăn hết.",
+    "Em không cần trang điểm để đẹp đâu, nhưng lúc em mới ngủ dậy tóc rối bù thì lại đáng yêu theo một kiểu rất riêng.",
+    "Dù bao nhiêu mùa đông đi qua, tay anh vẫn muốn được nắm tay em để sưởi ấm, mãi mãi như vậy.",
+    "Em là bến đỗ bình yên nhất anh từng tìm được sau một ngày dài — cảm ơn em vì luôn ở đó."
   ];
 
-  const anecdotes = [
-    "Cái lần tụi mình đi lạc đường tìm quán ăn mà cuối cùng lại tìm được món ngon nhất từ trước giờ.",
-    "Lần đầu tụi mình nấu ăn chung và suýt làm cháy cả bếp — nhưng vẫn ăn hết sạch vì đói quá.",
-    "Em ngủ gục ngay giữa bộ phim mà tụi mình háo hức chờ xem cả tháng trời.",
-    "Cuộc thi xem ai chịu lạnh giỏi hơn khi đi du lịch — và ai cũng thua thảm hại.",
-    "Lần anh hù em sợ muốn rớt tim, xong bị em đánh cho một trận nhớ đời."
+  const poems = [
+    {
+      text: `Sáng nay mở mắt thấy em,
+Lòng anh ấm áp dịu êm nắng vàng.
+Đường đời có lắm mưa ngàn,
+Có em bên cạnh muôn ngàn cũng qua.
+Tình ta như khúc dân ca,
+Càng nghe càng thấm, càng xa càng gần.
+Trăm năm anh nguyện một lần,
+Mai sau bạc tóc vẫn cần có nhau.`,
+      sign: "— anh viết riêng cho em"
+    },
+    {
+      text: `Em là nắng sớm hiên nhà,
+Là ly cà phê đậm đà mỗi mai.
+Đường xa có ngắn có dài,
+Miễn còn có bóng hình ai đợi chờ.
+Yêu em chẳng đợi bao giờ,
+Chỉ mong mỗi sớm, mỗi mơ có mình.
+Trăm năm một chữ chung tình,
+Anh xin giữ trọn bóng hình của em.`,
+      sign: "— thơ tặng người vợ anh yêu nhất"
+    },
+    {
+      text: `Có em cuộc sống thêm vui,
+Có em nỗi nhớ ngọt bùi hơn xưa.
+Nắng mưa hay những đêm mưa,
+Bàn tay anh nắm vẫn chưa buông rời.
+Yêu em từ thuở đôi mươi,
+Đến khi tóc bạc vẫn mười phần yêu.
+Dẫu cho sớm nắng chiều siêu,
+Bên em anh vẫn là điều muốn hơn.`,
+      sign: "— gửi em, người bạn đời của anh"
+    }
   ];
 
   function pickRandom(arr, excludeIndex){
@@ -245,6 +291,33 @@ Mai sau bạc tóc vẫn cần có nhau.<span class="signature">— anh viết r
 
   document.getElementById('shuffle').addEventListener('click', showMessage);
   showMessage();
+
+  let lastPoemIndex = -1;
+  function showPoem(){
+    lastPoemIndex = pickRandom(poems, lastPoemIndex);
+    const poem = poems[lastPoemIndex];
+    const el = document.getElementById('poem-text');
+    el.textContent = poem.text;
+    const sig = document.createElement('span');
+    sig.className = 'signature';
+    sig.textContent = poem.sign;
+    el.appendChild(sig);
+  }
+
+  document.getElementById('poem-shuffle').addEventListener('click', showPoem);
+  showPoem();
+
+  const anecdotes = [
+    "Cái lần tụi mình đi lạc đường tìm quán ăn mà cuối cùng lại tìm được món ngon nhất từ trước giờ.",
+    "Lần đầu tụi mình nấu ăn chung và suýt làm cháy cả bếp — nhưng vẫn ăn hết sạch vì đói quá.",
+    "Em ngủ gục ngay giữa bộ phim mà tụi mình háo hức chờ xem cả tháng trời.",
+    "Cuộc thi xem ai chịu lạnh giỏi hơn khi đi du lịch — và ai cũng thua thảm hại.",
+    "Lần anh hù em sợ muốn rớt tim, xong bị em đánh cho một trận nhớ đời.",
+    "Lần tụi mình cãi nhau vì ai giành phần chăn nhiều hơn, xong cả hai đều ngủ quên mất đang giận.",
+    "Cái hôm em cố dạy anh nấu món tủ của má, kết quả là món ăn lạ chưa từng có tên trên đời.",
+    "Lúc đi siêu thị, hai đứa cãi nhau chọn loại kem đánh răng gì mà cãi như thể chuyện quốc gia đại sự.",
+    "Lần đầu tụi mình đi karaoke, anh hát sai tông cả bài mà em vẫn vỗ tay nhiệt tình nhất hội."
+  ];
 
   const list = document.getElementById('anecdotes');
   anecdotes.forEach(text => {
