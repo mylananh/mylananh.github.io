@@ -188,6 +188,7 @@ Mai sau bạc tóc vẫn cần có nhau.<span class="signature">— anh viết r
       <li>Anh hứa sẽ già đi cùng em, tóc bạc, chân chậm nhưng tay vẫn nắm nhau.</li>
       <li>Anh hứa sẽ luôn coi em là ưu tiên, không phải vì nghĩa vụ, mà vì anh muốn vậy.</li>
       <li>Anh hứa yêu em không chỉ hôm nay, mà là mãi mãi — forever and always.</li>
+      <li>Anh hứa sẽ luôn lắng nghe em, kể cả khi anh không hiểu hết mọi chuyện.</li>
     </ul>
   </section>
 
@@ -220,7 +221,11 @@ Mai sau bạc tóc vẫn cần có nhau.<span class="signature">— anh viết r
     "Em là món quà đẹp nhất mà anh từng nhận được — và anh sẽ trân trọng nó mỗi ngày.",
     "Dù cuộc sống có bận rộn thế nào, trái tim anh vẫn luôn dành một chỗ lớn nhất cho em.",
     "Good morning, my love. Cảm ơn em vì đã là chính mình — anh yêu tất cả những điều đó.",
-    "Nếu hạnh phúc có hình dạng, thì nó chính là em, ngay lúc này, trong vòng tay anh."
+    "Nếu hạnh phúc có hình dạng, thì nó chính là em, ngay lúc này, trong vòng tay anh.",
+    "Thức dậy bên em là điều tốt đẹp nhất mà anh không bao giờ thấy chán.",
+    "Em là bến đỗ bình yên nhất sau tất cả những bộn bề — cảm ơn em vì luôn ở đó.",
+    "Trước khi làm bất cứ điều gì hôm nay, anh muốn em biết: anh yêu em nhiều lắm.",
+    "Chúc em một ngày mới thật đẹp, đẹp như nụ cười của em lúc anh vừa mở mắt ra đã thấy."
   ];
 
   const anecdotes = [
@@ -228,8 +233,15 @@ Mai sau bạc tóc vẫn cần có nhau.<span class="signature">— anh viết r
     "Lần đầu tụi mình nấu ăn chung và suýt làm cháy cả bếp — nhưng vẫn ăn hết sạch vì đói quá.",
     "Em ngủ gục ngay giữa bộ phim mà tụi mình háo hức chờ xem cả tháng trời.",
     "Cuộc thi xem ai chịu lạnh giỏi hơn khi đi du lịch — và ai cũng thua thảm hại.",
-    "Lần anh hù em sợ muốn rớt tim, xong bị em đánh cho một trận nhớ đời."
+    "Lần anh hù em sợ muốn rớt tim, xong bị em đánh cho một trận nhớ đời.",
+    "Lần tụi mình cãi nhau xem nên rẽ trái hay phải, rồi cả hai cùng rẽ sai đường.",
+    "Em hát karaoke sai lời gần hết bài mà vẫn tự tin như đang biểu diễn ở sân khấu lớn."
   ];
+
+  function dayNumber(){
+    const now = new Date();
+    return Math.floor(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) / 86400000);
+  }
 
   function pickRandom(arr, excludeIndex){
     let i;
@@ -237,14 +249,14 @@ Mai sau bạc tóc vẫn cần có nhau.<span class="signature">— anh viết r
     return i;
   }
 
-  let lastIndex = -1;
-  function showMessage(){
-    lastIndex = pickRandom(messages, lastIndex);
+  let lastIndex = dayNumber() % messages.length;
+  function showMessage(random){
+    lastIndex = random ? pickRandom(messages, lastIndex) : lastIndex;
     document.getElementById('daily-message').textContent = messages[lastIndex];
   }
 
-  document.getElementById('shuffle').addEventListener('click', showMessage);
-  showMessage();
+  document.getElementById('shuffle').addEventListener('click', () => showMessage(true));
+  showMessage(false);
 
   const list = document.getElementById('anecdotes');
   anecdotes.forEach(text => {
